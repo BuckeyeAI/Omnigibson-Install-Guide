@@ -71,7 +71,7 @@ echo $ISAAC_SIM_PATH
 
 5. Reactivate the conda environment. Download the dataset by calling the `setup.py` script:
 ```
-python -m omnigibson.scripts.setup.py
+python omnigibson/scripts/setup.py
 ```
 
 6. Then try execute some Omnigibson functions, such as
@@ -94,9 +94,10 @@ This is likely caused by you not installing the omniverse python environment, or
 ```
 FileNotFoundError: [Errno 2] No such file or directory: '/home/tong/pm/OmniGibson/omnigibson/data/og_dataset/scenes'
 ```
-This is likely caused by not having downloaded the dataset. I have no idea yet where to download the dataset. But I did find out that the dataset is automatically downloaded using the [Docker container installation approach](https://behavior.stanford.edu/omnigibson/getting_started/installation.html). It asks you to provide a `[DATA_PATH]` during the call `sh ./run_docker.sh [DATA_PATH]`, and it will dump the dataset to this `[DATA_PATH]`. You can manually copy the content under this `[DATA_PATH]` to where Omnigibson is complaining, i.e., `/home/tong/pm/OmniGibson/omnigibson/data/og_dataset/scenes` in my case. In my case, `[DATA_PATH] = /home/tong/.local/shared/ov/data`, so I just needed to copy the existing dataset in my `[DATA_PATH]` to `/home/tong/pm/OmniGibson/omnigibson/data` by:
+This is likely caused by not having downloaded the dataset. The correct way to download the dataset into the right place is to call the `setup.py` script at the root folder of the repo:
+
 ```
-cp -r ~/.local/shared/ov/data/datasets ~/pm/OmniGibson/omnigibson/data/
+python omnigibson/scripts/setup.py
 ```
 
 3. The `reset()` issue. It is possible that you will get error related to the `reset()` attribute not found. This is a [known](https://github.com/StanfordVL/OmniGibson/issues/111) issue, and the hot-fix is to comment out line 89 in `omnigibson/object_states/object_state_base.py`.
